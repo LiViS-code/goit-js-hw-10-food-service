@@ -3,9 +3,9 @@ import menu from './templates/menu-item.hbs';
 import menuList from './menu.json';
 
 // варианты тем
-const theme = {
-  light: 'light-theme',
-  dark: 'dark-theme',
+const Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
 };
 
 const ref = {
@@ -13,23 +13,20 @@ const ref = {
   themeSwitchToggle: document.querySelector('#theme-switch-toggle'),
 };
 
-// создать разметку меню
-const makeMenuList = list => menu(list);
-
 // вставить разметку на страничку
-ref.menu.insertAdjacentHTML('beforeend', makeMenuList(menuList));
+ref.menu.insertAdjacentHTML('beforeend', menu(menuList));
 
 const toggleTheme = () => {
   // переключить темы
   switch (document.body.className) {
-    case theme.dark:
-      document.body.classList.remove(theme.dark);
-      document.body.classList.add(theme.light);
+    case Theme.DARK:
+      document.body.classList.remove(Theme.DARK);
+      document.body.classList.add(Theme.LIGHT);
       break;
 
     default:
-      document.body.classList.remove(theme.light);
-      document.body.classList.add(theme.dark);
+      document.body.classList.remove(Theme.LIGHT);
+      document.body.classList.add(Theme.DARK);
       break;
   }
 
@@ -44,5 +41,5 @@ ref.themeSwitchToggle.addEventListener('change', toggleTheme);
 if (localStorage.getItem('theme')) document.body.classList.add(localStorage.getItem('theme'));
 
 // проверить корректность положения переключателя тем
-if (localStorage.getItem('theme') === theme.dark)
+if (localStorage.getItem('theme') === Theme.DARK)
   ref.themeSwitchToggle.setAttribute('checked', true);
